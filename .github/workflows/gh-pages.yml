@@ -22,27 +22,19 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-      
-      - name: Clean and compile Java project
-        run: |
-          rm -rf target/classes
-          mkdir -p target/classes
-          javac -d target/classes src/main/java/dev/kxrim/*.java
-      
-      - name: Run project to generate HTML
-        run: |
-          java -cp target/classes dev.kxrim.Main
+          cache: 'maven'
 
-      - name: Prepare deployment directory
-        run: |
-          mkdir -p deploy
-          cp generated/index.html deploy/index.html
+      - name: Build with Maven
+        run: mvn clean compile
+
+      - name: Generate HTML
+        run: mvn exec:java -Dexec.mainClass="dev.kxrim.Main"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./deploy
+          publish_dir: ./generated
           publish_branch: gh-pages
           force_orphan: true
 

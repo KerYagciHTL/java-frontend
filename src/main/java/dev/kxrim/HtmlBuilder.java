@@ -35,13 +35,26 @@ public class HtmlBuilder {
             .append("</").append(tag).append(">\n");
     }
 
+    public void addButton(String text) {
+        html.append("<button>")
+            .append(text)
+            .append("</button>\n");
+    }
+
+    public void addButton(String text, String onClick) {
+        html.append("<button onclick=\"")
+            .append(onClick)
+            .append("\">")
+            .append(text)
+            .append("</button>\n");
+    }
+
     public void build() {
         head.append(html);
         head.append("</body>\n");
         head.append("</html>");
 
         try {
-            // create generated folder if not exists
             Files.createDirectories(Paths.get("generated"));
             var filePath = Paths.get("generated/index.html");
             Files.writeString(filePath, head.toString());
