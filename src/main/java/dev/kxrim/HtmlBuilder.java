@@ -103,6 +103,18 @@ public class HtmlBuilder {
             .append("\">\n");
     }
 
+    public void addTextarea(String name, String placeholder, int rows, int cols) {
+        html.append("<textarea name=\"")
+            .append(name)
+            .append("\" placeholder=\"")
+            .append(placeholder)
+            .append("\" rows=\"")
+            .append(rows)
+            .append("\" cols=\"")
+            .append(cols)
+            .append("\"></textarea>\n");
+    }
+
     public void build() {
         head.append(html);
         head.append("</body>\n");
