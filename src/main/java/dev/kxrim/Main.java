@@ -1,7 +1,7 @@
 package dev.kxrim;
 
 public class Main {
-    static void main() {
+    public static void main(String[] args) {
         HtmlBuilder htmlBuilder = new HtmlBuilder();
         htmlBuilder.setLang("en");
         htmlBuilder.setCharset("UTF-8");
