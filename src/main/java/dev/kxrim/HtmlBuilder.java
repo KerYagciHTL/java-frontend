@@ -1,5 +1,7 @@
 package dev.kxrim;
 
+import dev.kxrim.elements.*;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -49,94 +51,11 @@ public class HtmlBuilder {
         head.append("<body>\n");
     }
 
-    public void addElement(String tag, String content) {
-        html.append("<").append(tag).append(">")
-            .append(content)
-            .append("</").append(tag).append(">\n");
+    public void addElement(Element element) {
+        html.append(element.toHtml());
     }
 
-    public void addButton(String text) {
-        html.append("<button>")
-            .append(text)
-            .append("</button>\n");
-    }
 
-    public void addButton(String text, String onClick) {
-        html.append("<button onclick=\"")
-            .append(onClick)
-            .append("\">")
-            .append(text)
-            .append("</button>\n");
-    }
-
-    public void addDiv(String content) {
-        html.append("<div>")
-            .append(content)
-            .append("</div>\n");
-    }
-
-    public void addDiv(String content, String className) {
-        html.append("<div class=\"")
-            .append(className)
-            .append("\">")
-            .append(content)
-            .append("</div>\n");
-    }
-
-    public void addLink(String href, String text) {
-        html.append("<a href=\"")
-            .append(href)
-            .append("\">")
-            .append(text)
-            .append("</a>\n");
-    }
-
-    public void addImage(String src, String alt) {
-        html.append("<img src=\"")
-            .append(src)
-            .append("\" alt=\"")
-            .append(alt)
-            .append("\">\n");
-    }
-
-    public void addInput(String type, String name, String placeholder) {
-        html.append("<input type=\"")
-            .append(type)
-            .append("\" name=\"")
-            .append(name)
-            .append("\" placeholder=\"")
-            .append(placeholder)
-            .append("\">\n");
-    }
-
-    public void addTextarea(String name, String placeholder, int rows, int cols) {
-        html.append("<textarea name=\"")
-            .append(name)
-            .append("\" placeholder=\"")
-            .append(placeholder)
-            .append("\" rows=\"")
-            .append(rows)
-            .append("\" cols=\"")
-            .append(cols)
-            .append("\"></textarea>\n");
-    }
-
-    public void addList(boolean ordered, String... items) {
-        String tag = ordered ? "ol" : "ul";
-        html.append("<").append(tag).append(">\n");
-        for (String item : items) {
-            html.append("<li>").append(item).append("</li>\n");
-        }
-        html.append("</").append(tag).append(">\n");
-    }
-
-    /**
-     * Copy assets from a source directory to the generated/assets folder.
-     * Also fixes image paths in the HTML to point to assets/ directory.
-     * Supports copying from directories like "images/", "img/", "assets/", etc.
-     *
-     * @param sourceDir The source directory containing image files
-     */
     public void copyAssets(String sourceDir) {
         try {
             Path sourcePath = Paths.get(sourceDir);
@@ -170,19 +89,12 @@ public class HtmlBuilder {
         }
     }
 
-    /**
-     * Add an image using a local file path. Automatically copies the image to assets/
-     * and fixes the path in the HTML.
-     *
-     * @param localPath Path to the local image file (e.g., "images/photo.png")
-     * @param alt Alternative text for the image
-     */
     public void addLocalImage(String localPath, String alt) {
         try {
             Path source = Paths.get(localPath);
             if (!Files.exists(source)) {
                 System.err.println("Image file not found: " + localPath);
-                addImage(localPath, alt); // Add anyway with original path
+                addElement(new Image(localPath, alt)); // Add anyway with original path
                 return;
             }
 
@@ -191,12 +103,11 @@ public class HtmlBuilder {
             Path destination = ASSETS_DIR.resolve(fileName);
             Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
 
-            // Use relative path in HTML
-            addImage("assets/" + fileName, alt);
+            addElement(new Image("assets/" + fileName, alt));
             System.out.println("Added local image: " + fileName);
         } catch (IOException e) {
             System.err.println("Error adding local image: " + e.getMessage());
-            addImage(localPath, alt); // Fallback to original path
+            addElement(new Image(localPath, alt)); // Fallback to original path
         }
     }
 
