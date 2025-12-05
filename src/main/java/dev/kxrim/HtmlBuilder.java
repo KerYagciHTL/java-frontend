@@ -51,17 +51,87 @@ public class HtmlBuilder {
         head.append("<body>\n");
     }
 
-    public void addElement(Element element) {
+    public HtmlBuilder addElement(Element element) {
         html.append(element.toHtml());
+        return this;
+    }
+
+    // Fluent API methods
+    public HtmlBuilder heading(int level, String text) {
+        return addElement(new Heading(level, text));
+    }
+
+    public HtmlBuilder paragraph(String content) {
+        return addElement(new Paragraph(content));
+    }
+
+    public HtmlBuilder div(String content) {
+        return addElement(new Div(content));
+    }
+
+    public HtmlBuilder div(String content, String className) {
+        return addElement(new Div(content, className));
+    }
+
+    public HtmlBuilder button(String text) {
+        return addElement(new Button(text));
+    }
+
+    public HtmlBuilder button(String text, String onClick) {
+        return addElement(new Button(text, onClick));
+    }
+
+    public HtmlBuilder link(String url, String text) {
+        return addElement(new Link(url, text));
+    }
+
+    public HtmlBuilder image(String src, String alt) {
+        return addElement(new Image(src, alt));
+    }
+
+    public HtmlBuilder input(String type, String name, String placeholder) {
+        return addElement(new Input(type, name, placeholder));
+    }
+
+    public HtmlBuilder textarea(String name, String placeholder, int rows, int cols) {
+        return addElement(new Textarea(name, placeholder, rows, cols));
+    }
+
+    public HtmlBuilder listUnordered(String... items) {
+        return addElement(new ListElement(false, items));
+    }
+
+    public HtmlBuilder listOrdered(String... items) {
+        return addElement(new ListElement(true, items));
+    }
+
+    public HtmlBuilder blockQuote(String content) {
+        return addElement(new BlockQuote(content));
+    }
+
+    public HtmlBuilder code(String content) {
+        return addElement(new Code(content));
+    }
+
+    public HtmlBuilder strong(String content) {
+        return addElement(new Strong(content));
+    }
+
+    public HtmlBuilder emphasis(String content) {
+        return addElement(new Emphasis(content));
+    }
+
+    public HtmlBuilder horizontalRule() {
+        return addElement(new HorizontalRule());
     }
 
 
-    public void copyAssets(String sourceDir) {
+    public HtmlBuilder copyAssets(String sourceDir) {
         try {
             Path sourcePath = Paths.get(sourceDir);
             if (!Files.exists(sourcePath) || !Files.isDirectory(sourcePath)) {
                 System.out.println("Source directory does not exist: " + sourceDir);
-                return;
+                return this;
             }
 
             Files.createDirectories(ASSETS_DIR);
@@ -87,15 +157,16 @@ public class HtmlBuilder {
         } catch (IOException e) {
             System.err.println("Error copying assets: " + e.getMessage());
         }
+        return this;
     }
 
-    public void addLocalImage(String localPath, String alt) {
+    public HtmlBuilder addLocalImage(String localPath, String alt) {
         try {
             Path source = Paths.get(localPath);
             if (!Files.exists(source)) {
                 System.err.println("Image file not found: " + localPath);
                 addElement(new Image(localPath, alt)); // Add anyway with original path
-                return;
+                return this;
             }
 
             Files.createDirectories(ASSETS_DIR);
@@ -109,6 +180,7 @@ public class HtmlBuilder {
             System.err.println("Error adding local image: " + e.getMessage());
             addElement(new Image(localPath, alt)); // Fallback to original path
         }
+        return this;
     }
 
     public void build() {

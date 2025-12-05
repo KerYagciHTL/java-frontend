@@ -17,118 +17,42 @@ public class Main {
     public static void main(String[] args) {
         HtmlBuilder builder = new HtmlBuilder(PAGE_TITLE);
 
-        buildHeader(builder);
-        buildIntroduction(builder);
-        buildDivExamples(builder);
-        buildButtonExamples(builder);
-        buildLinkExamples(builder);
-        buildImageExamples(builder);
-        buildFormExamples(builder);
-        buildListExamples(builder);
-        buildTextFormattingExamples(builder);
-        buildFooter(builder);
-
-        builder.build();
-    }
-
-    /**
-     * Builds the page header with main title and subtitle
-     */
-    private static void buildHeader(HtmlBuilder builder) {
-        builder.addElement(new Heading(1, "HtmlBuilder Feature Showcase"));
-        builder.addElement(new Heading(2, "All Available Methods Demonstrated"));
-    }
-
-    /**
-     * Builds the introduction section
-     */
-    private static void buildIntroduction(HtmlBuilder builder) {
-        builder.addElement(new Paragraph(
-            "This page demonstrates all the features of the HtmlBuilder class."
-        ));
-    }
-
-    /**
-     * Demonstrates Div element usage with and without CSS classes
-     */
-    private static void buildDivExamples(HtmlBuilder builder) {
-        builder.addElement(new Div("This is a simple div"));
-        builder.addElement(new Div("This is a div with a CSS class", "highlighted"));
-    }
-
-    /**
-     * Demonstrates various button configurations
-     */
-    private static void buildButtonExamples(HtmlBuilder builder) {
-        builder.addElement(new Heading(3, "Buttons"));
-        builder.addElement(new Button("Simple Button"));
-        builder.addElement(new Button("Click Me", "alert('Hello from HtmlBuilder!')"));
-        builder.addElement(new Button("Console Log", "console.log('Button clicked!')"));
-    }
-
-    /**
-     * Demonstrates link elements
-     */
-    private static void buildLinkExamples(HtmlBuilder builder) {
-        builder.addElement(new Heading(3, "Links"));
-        builder.addElement(new Link(GITHUB_URL, "Visit GitHub"));
-        builder.addElement(new Link(JAVA_URL, "Learn Java"));
-    }
-
-    /**
-     * Demonstrates image handling including remote and local images
-     */
-    private static void buildImageExamples(HtmlBuilder builder) {
-        builder.addElement(new Heading(3, "Images"));
-        builder.addElement(new Image(
-            "https://media.tenor.com/mSIfEcNYz5QAAAAj/cute.gif",
-            "Placeholder Image"
-        ));
-        builder.addLocalImage("images/peach.gif", "GIF");
-        builder.copyAssets("images");
-    }
-
-    /**
-     * Demonstrates form input elements
-     */
-    private static void buildFormExamples(HtmlBuilder builder) {
-        builder.addElement(new Heading(3, "Form Elements"));
-        builder.addElement(new Input("text", "username", "Enter your username"));
-        builder.addElement(new Input("email", "email", "Enter your email"));
-        builder.addElement(new Input("password", "password", "Enter your password"));
-        builder.addElement(new Textarea("message", "Enter your message", 5, 40));
-    }
-
-    /**
-     * Demonstrates both ordered and unordered lists
-     */
-    private static void buildListExamples(HtmlBuilder builder) {
-        builder.addElement(new Heading(3, "Unordered List"));
-        builder.addElement(new ListElement(false, "First item", "Second item", "Third item"));
-
-        builder.addElement(new Heading(3, "Ordered List"));
-        builder.addElement(new ListElement(true, "Step one", "Step two", "Step three"));
-    }
-
-    /**
-     * Demonstrates various text formatting elements
-     */
-    private static void buildTextFormattingExamples(HtmlBuilder builder) {
-        builder.addElement(new Heading(3, "Text Formatting"));
-        builder.addElement(new Heading(4, "Subheading"));
-        builder.addElement(new Heading(5, "Smaller subheading"));
-        builder.addElement(new Heading(6, "Smallest heading"));
-        builder.addElement(new BlockQuote("This is a quote using BlockQuote element"));
-        builder.addElement(new Code("const x = 42;"));
-        builder.addElement(new Strong("Bold text"));
-        builder.addElement(new Emphasis("Italic text"));
-    }
-
-    /**
-     * Builds the page footer
-     */
-    private static void buildFooter(HtmlBuilder builder) {
-        builder.addElement(new HorizontalRule());
-        builder.addElement(new Paragraph("Built with ❤️ using HtmlBuilder"));
+        // Using fluent API - chain all method calls
+        builder.heading(1, "HtmlBuilder Feature Showcase")
+               .heading(2, "All Available Methods Demonstrated")
+               .paragraph("This page demonstrates all the features of the HtmlBuilder class.")
+               .div("This is a simple div")
+               .div("This is a div with a CSS class", "highlighted")
+               .heading(3, "Buttons")
+               .button("Simple Button")
+               .button("Click Me", "alert('Hello from HtmlBuilder!')")
+               .button("Console Log", "console.log('Button clicked!')")
+               .heading(3, "Links")
+               .link(GITHUB_URL, "Visit GitHub")
+               .link(JAVA_URL, "Learn Java")
+               .heading(3, "Images")
+               .image("https://media.tenor.com/mSIfEcNYz5QAAAAj/cute.gif", "Placeholder Image")
+               .addLocalImage("images/peach.gif", "GIF")
+               .copyAssets("images")
+               .heading(3, "Form Elements")
+               .input("text", "username", "Enter your username")
+               .input("email", "email", "Enter your email")
+               .input("password", "password", "Enter your password")
+               .textarea("message", "Enter your message", 5, 40)
+               .heading(3, "Unordered List")
+               .listUnordered("First item", "Second item", "Third item")
+               .heading(3, "Ordered List")
+               .listOrdered("Step one", "Step two", "Step three")
+               .heading(3, "Text Formatting")
+               .heading(4, "Subheading")
+               .heading(5, "Smaller subheading")
+               .heading(6, "Smallest heading")
+               .blockQuote("This is a quote using BlockQuote element")
+               .code("const x = 42;")
+               .strong("Bold text")
+               .emphasis("Italic text")
+               .horizontalRule()
+               .paragraph("Built with ❤️ using HtmlBuilder")
+               .build();
     }
 }
