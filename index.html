@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HtmlBuilder Full Feature Demonstration</title>
+</head>
+<body>
+<h1>HtmlBuilder Feature Showcase</h1>
+<h2>All Available Methods Demonstrated</h2>
+<p>This page demonstrates all the features of the HtmlBuilder class.</p>
+<div>This is a simple div</div>
+<div class="highlighted">This is a div with a CSS class</div>
+<h3>Buttons</h3>
+<button>Simple Button</button>
+<button onclick="alert('Hello from HtmlBuilder!')">Click Me</button>
+<button onclick="console.log('Button clicked!')">Console Log</button>
+<h3>Links</h3>
+<a href="https://github.com/KerYagciHTL/java-frontend">Visit GitHub</a>
+<a href="https://www.java.com">Learn Java</a>
+<h3>Images</h3>
+<img src="https://media.tenor.com/mSIfEcNYz5QAAAAj/cute.gif" alt="Placeholder Image">
+<img src="assets/peach.gif" alt="GIF">
+<h3>Form Elements</h3>
+<input type="text" name="username" placeholder="Enter your username">
+<input type="email" name="email" placeholder="Enter your email">
+<input type="password" name="password" placeholder="Enter your password">
+<textarea name="message" placeholder="Enter your message" rows="5" cols="40"></textarea>
+<h3>Unordered List</h3>
+<ul>
+<li>First item</li>
+<li>Second item</li>
+<li>Third item</li>
+</ul>
+<h3>Ordered List</h3>
+<ol>
+<li>Step one</li>
+<li>Step two</li>
+<li>Step three</li>
+</ol>
+<h3>Text Formatting</h3>
+<h4>Subheading</h4>
+<h5>Smaller subheading</h5>
+<h6>Smallest heading</h6>
+<blockquote>This is a quote using BlockQuote element</blockquote>
+<code>const x = 42;</code>
+<strong>Bold text</strong>
+<em>Italic text</em>
+<hr>
+<p>Built with ❤️ using HtmlBuilder</p>
+<h2>Div Fluent API Demonstration</h2>
+<p>The Div class now supports fluent API for nesting elements:</p>
+<div class="container"><h3>Card Title</h3>
+<p>This is a card created using the Div fluent API.</p>
+<button onclick="alert('Card button clicked!')">Action Button</button>
+</div>
+<div class="wrapper">This div contains multiple nested elements:<div class="inner-section"><h4>Nested Section</h4>
+<p>This paragraph is inside a nested div.</p>
+<ul>
+<li>Nested item 1</li>
+<li>Nested item 2</li>
+<li>Nested item 3</li>
+</ul>
+</div>
+<hr>
+<p>Back to the outer div content.</p>
+<a href="https://github.com/KerYagciHTL/java-frontend">GitHub Link inside Div</a>
+</div>
+<div class="highlight"><h4>Created via Builder</h4>
+<p>This div was created using builder.createDiv().</p>
+<code>builder.createDiv("className").paragraph("text");</code>
+</div>
+<div><h4>Simple Inline Div</h4>
+<p>Created without a class name.</p>
+<strong>Bold text inside div</strong>
+<em>Italic text inside div</em>
+</div>
+</body>
+</html>
