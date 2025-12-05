@@ -52,7 +52,41 @@ public class Main {
                .strong("Bold text")
                .emphasis("Italic text")
                .horizontalRule()
-               .paragraph("Built with ❤️ using HtmlBuilder")
-               .build();
+               .paragraph("Built with ❤️ using HtmlBuilder");
+
+        builder.heading(2, "Div Fluent API Demonstration")
+               .paragraph("The Div class now supports fluent API for nesting elements:");
+
+        Div card = new Div("container", true)
+                .heading(3, "Card Title")
+                .paragraph("This is a card created using the Div fluent API.")
+                .button("Action Button", "alert('Card button clicked!')");
+
+        builder.div(card);
+
+        Div complexDiv = new Div("wrapper", true)
+                .addText("This div contains multiple nested elements:")
+                .div(new Div("inner-section", true)
+                        .heading(4, "Nested Section")
+                        .paragraph("This paragraph is inside a nested div.")
+                        .listUnordered("Nested item 1", "Nested item 2", "Nested item 3"))
+                .horizontalRule()
+                .paragraph("Back to the outer div content.")
+                .link(GITHUB_URL, "GitHub Link inside Div");
+
+        builder.div(complexDiv);
+
+        builder.div(builder.createDiv("highlight")
+                .heading(4, "Created via Builder")
+                .paragraph("This div was created using builder.createDiv().")
+                .code("builder.createDiv(\"className\").paragraph(\"text\");"));
+
+        builder.div(new Div()
+                .heading(4, "Simple Inline Div")
+                .paragraph("Created without a class name.")
+                .strong("Bold text inside div")
+                .emphasis("Italic text inside div"));
+
+        builder.build();
     }
 }

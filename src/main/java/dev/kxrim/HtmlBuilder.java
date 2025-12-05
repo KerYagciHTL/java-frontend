@@ -73,6 +73,18 @@ public class HtmlBuilder {
         return addElement(new Div(content, className));
     }
 
+    public HtmlBuilder div(Div div) {
+        return addElement(div);
+    }
+
+    public Div createDiv() {
+        return new Div();
+    }
+
+    public Div createDiv(String className) {
+        return new Div(className, true);
+    }
+
     public HtmlBuilder button(String text) {
         return addElement(new Button(text));
     }
